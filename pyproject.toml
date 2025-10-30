@@ -39,6 +39,7 @@ format = "{base}.{distance}"
 
 [tool.pytest.ini_options]
 addopts = "--black --flake8 --mypy"
+testpaths = ["rr_ct_board"]
 
 [tool.black]
 line-length = 96

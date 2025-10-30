@@ -30,7 +30,7 @@ test:
 	poetry run pytest
 
 format:
-	poetry run black .
+	poetry run black rr_ct_board
 
 run:
 	poetry run uvicorn rr_ct_board.app:main \
@@ -40,7 +40,7 @@ run:
 		--port=8000
 
 image:
-	podman build .
+	podman build . --tag rr-ct-board
 
 run-image:
 	podman run -v `pwd`:/app -p 8000:8000 rr-ct-board \

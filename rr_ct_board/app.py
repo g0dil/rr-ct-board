@@ -1,6 +1,5 @@
 import connexion  # type: ignore
 import logging
-import time
 
 from . import models
 
