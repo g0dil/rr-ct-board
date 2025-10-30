@@ -8,6 +8,7 @@ readme = "README.md"
 requires-python = ">=3.10,<4"
 dependencies = [
     "connexion[swagger-ui,uvicorn] (>=3.3.0,<4.0.0)",
+    "pydantic (>=2.12.3,<3.0.0)",
 ]
 dynamic = ["version"]
 
@@ -33,9 +34,6 @@ poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
 [tool.poetry-dynamic-versioning]
 enable = true
 format = "{base}.{distance}"
-
-[tool.poetry.scripts]
-rr-ct-board = "rr_ct_board.app:main"
 
 [tool.mypy]
 
