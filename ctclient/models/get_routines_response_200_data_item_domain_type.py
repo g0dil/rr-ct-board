@@ -1,0 +1,8 @@
+from enum import Enum
+
+
+class GetRoutinesResponse200DataItemDomainType(str, Enum):
+    GROUP_MEMBERSHIP = "group_membership"
+
+    def __str__(self) -> str:
+        return str(self.value)

@@ -1,0 +1,81 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+T = TypeVar("T", bound="PostLinkingLinkingsItemType0DataType0MusicSongsItem")
+
+
+@_attrs_define
+class PostLinkingLinkingsItemType0DataType0MusicSongsItem:
+    """A model representing a song in the OpenGraph data structure.
+
+    Attributes:
+        disc (int | Unset): The disc number on which the song appears, applicable for albums with multiple discs.
+            Example: 1.
+        track (int | Unset): The track number of the song on its disc. Example: 5.
+        url (str | Unset): The URL where the song can be accessed. Example: https://example.com/song.mp3.
+    """
+
+    disc: int | Unset = UNSET
+    track: int | Unset = UNSET
+    url: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        disc = self.disc
+
+        track = self.track
+
+        url = self.url
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({})
+        if disc is not UNSET:
+            field_dict["disc"] = disc
+        if track is not UNSET:
+            field_dict["track"] = track
+        if url is not UNSET:
+            field_dict["url"] = url
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+        disc = d.pop("disc", UNSET)
+
+        track = d.pop("track", UNSET)
+
+        url = d.pop("url", UNSET)
+
+        post_linking_linkings_item_type_0_data_type_0_music_songs_item = cls(
+            disc=disc,
+            track=track,
+            url=url,
+        )
+
+        post_linking_linkings_item_type_0_data_type_0_music_songs_item.additional_properties = d
+        return post_linking_linkings_item_type_0_data_type_0_music_songs_item
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

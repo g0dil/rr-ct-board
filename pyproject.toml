@@ -19,10 +19,12 @@ dev = [
     "black (>=25.9.0,<26.0.0)",
     "pytest-black (>=0.6.0,<0.7.0)",
     "pytest-flake8 (>=1.3.0,<2.0.0)",
-    "flake8-pyproject (>=1.2.3,<2.0.0)"
+    "flake8-pyproject (>=1.2.3,<2.0.0)",
+    "openapi-python-client (>=0.27.0,<0.28.0)"
 ]
 
 [tool.poetry]
+include = [ "ctclient", "rr_ct_board" ]
 version = "0.0.0"
 
 [tool.poetry.requires-plugins]

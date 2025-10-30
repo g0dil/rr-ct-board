@@ -1,0 +1,184 @@
+from http import HTTPStatus
+from typing import Any, cast
+
+import httpx
+
+from ... import errors
+from ...client import AuthenticatedClient, Client
+from ...models.put_posts_post_id_hidden_domain_type_domain_type import (
+    PutPostsPostIdHiddenDomainTypeDomainType,
+)
+from ...types import Response
+
+
+def _get_kwargs(
+    post_id: int,
+    domain_type: PutPostsPostIdHiddenDomainTypeDomainType,
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
+        "method": "put",
+        "url": "/posts/{post_id}/hidden/{domain_type}".format(
+            post_id=post_id,
+            domain_type=domain_type,
+        ),
+    }
+
+    return _kwargs
+
+
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Any | str | None:
+    if response.status_code == 401:
+        response_401 = response.text
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = cast(Any, None)
+        return response_403
+
+    if response.status_code == 404:
+        response_404 = cast(Any, None)
+        return response_404
+
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | str]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    post_id: int,
+    domain_type: PutPostsPostIdHiddenDomainTypeDomainType,
+    *,
+    client: AuthenticatedClient | Client,
+) -> Response[Any | str]:
+    """Hide a post. This endpoint is used to hide a post from the timeline of the user. The post is not
+    deleted, but the user will not see it anymore. NB: If the supplied domain type is `group`, this will
+    also deactivate post-related subscriptions for that group.
+
+    Args:
+        post_id (int):  Example: 42.
+        domain_type (PutPostsPostIdHiddenDomainTypeDomainType):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[Any | str]
+    """
+
+    kwargs = _get_kwargs(
+        post_id=post_id,
+        domain_type=domain_type,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    post_id: int,
+    domain_type: PutPostsPostIdHiddenDomainTypeDomainType,
+    *,
+    client: AuthenticatedClient | Client,
+) -> Any | str | None:
+    """Hide a post. This endpoint is used to hide a post from the timeline of the user. The post is not
+    deleted, but the user will not see it anymore. NB: If the supplied domain type is `group`, this will
+    also deactivate post-related subscriptions for that group.
+
+    Args:
+        post_id (int):  Example: 42.
+        domain_type (PutPostsPostIdHiddenDomainTypeDomainType):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Any | str
+    """
+
+    return sync_detailed(
+        post_id=post_id,
+        domain_type=domain_type,
+        client=client,
+    ).parsed
+
+
+async def asyncio_detailed(
+    post_id: int,
+    domain_type: PutPostsPostIdHiddenDomainTypeDomainType,
+    *,
+    client: AuthenticatedClient | Client,
+) -> Response[Any | str]:
+    """Hide a post. This endpoint is used to hide a post from the timeline of the user. The post is not
+    deleted, but the user will not see it anymore. NB: If the supplied domain type is `group`, this will
+    also deactivate post-related subscriptions for that group.
+
+    Args:
+        post_id (int):  Example: 42.
+        domain_type (PutPostsPostIdHiddenDomainTypeDomainType):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[Any | str]
+    """
+
+    kwargs = _get_kwargs(
+        post_id=post_id,
+        domain_type=domain_type,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    post_id: int,
+    domain_type: PutPostsPostIdHiddenDomainTypeDomainType,
+    *,
+    client: AuthenticatedClient | Client,
+) -> Any | str | None:
+    """Hide a post. This endpoint is used to hide a post from the timeline of the user. The post is not
+    deleted, but the user will not see it anymore. NB: If the supplied domain type is `group`, this will
+    also deactivate post-related subscriptions for that group.
+
+    Args:
+        post_id (int):  Example: 42.
+        domain_type (PutPostsPostIdHiddenDomainTypeDomainType):
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Any | str
+    """
+
+    return (
+        await asyncio_detailed(
+            post_id=post_id,
+            domain_type=domain_type,
+            client=client,
+        )
+    ).parsed

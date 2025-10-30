@@ -1,0 +1,71 @@
+from __future__ import annotations
+
+import datetime
+from collections.abc import Mapping
+from typing import Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+from dateutil.parser import isoparse
+
+T = TypeVar("T", bound="TransactionSummaryCostCenterPeriodsStartDate")
+
+
+@_attrs_define
+class TransactionSummaryCostCenterPeriodsStartDate:
+    """
+    Attributes:
+        last_year (datetime.date): A simple date in ISO format, e.g. '2022-10-19' Example: 2022-10-19.
+        this_year (datetime.date): A simple date in ISO format, e.g. '2022-10-19' Example: 2022-10-19.
+    """
+
+    last_year: datetime.date
+    this_year: datetime.date
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        last_year = self.last_year.isoformat()
+
+        this_year = self.this_year.isoformat()
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "lastYear": last_year,
+                "thisYear": this_year,
+            }
+        )
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+        last_year = isoparse(d.pop("lastYear")).date()
+
+        this_year = isoparse(d.pop("thisYear")).date()
+
+        transaction_summary_cost_center_periods_start_date = cls(
+            last_year=last_year,
+            this_year=this_year,
+        )
+
+        transaction_summary_cost_center_periods_start_date.additional_properties = d
+        return transaction_summary_cost_center_periods_start_date
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

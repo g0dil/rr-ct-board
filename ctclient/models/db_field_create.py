@@ -1,0 +1,176 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import Any, TypeVar, cast
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..models.db_field_create_field_category_intern_code import (
+    DbFieldCreateFieldCategoryInternCode,
+)
+from ..models.db_field_create_field_type_intern_code import (
+    DbFieldCreateFieldTypeInternCode,
+)
+from ..types import UNSET, Unset
+
+T = TypeVar("T", bound="DbFieldCreate")
+
+
+@_attrs_define
+class DbFieldCreate:
+    """
+    Attributes:
+        delete_on_archive (bool):
+        is_active (bool):
+        is_new_person_field (bool):
+        line_ending (str):
+        name (str):
+        security_level (int):
+        sort_key (int):
+        use_as_placeholder (bool):
+        field_category_intern_code (DbFieldCreateFieldCategoryInternCode): The intern code of the field category the
+            field belongs to. This is used to define the category of the field.
+        field_type_intern_code (DbFieldCreateFieldTypeInternCode): The intern code of the field type the field belongs
+            to. This is used to define the type of the field.
+        length (int | None | Unset):
+        shorty (str | Unset):
+    """
+
+    delete_on_archive: bool
+    is_active: bool
+    is_new_person_field: bool
+    line_ending: str
+    name: str
+    security_level: int
+    sort_key: int
+    use_as_placeholder: bool
+    field_category_intern_code: DbFieldCreateFieldCategoryInternCode
+    field_type_intern_code: DbFieldCreateFieldTypeInternCode
+    length: int | None | Unset = UNSET
+    shorty: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        delete_on_archive = self.delete_on_archive
+
+        is_active = self.is_active
+
+        is_new_person_field = self.is_new_person_field
+
+        line_ending = self.line_ending
+
+        name = self.name
+
+        security_level = self.security_level
+
+        sort_key = self.sort_key
+
+        use_as_placeholder = self.use_as_placeholder
+
+        field_category_intern_code = self.field_category_intern_code.value
+
+        field_type_intern_code = self.field_type_intern_code.value
+
+        length: int | None | Unset
+        if isinstance(self.length, Unset):
+            length = UNSET
+        else:
+            length = self.length
+
+        shorty = self.shorty
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "deleteOnArchive": delete_on_archive,
+                "isActive": is_active,
+                "isNewPersonField": is_new_person_field,
+                "lineEnding": line_ending,
+                "name": name,
+                "securityLevel": security_level,
+                "sortKey": sort_key,
+                "useAsPlaceholder": use_as_placeholder,
+                "fieldCategoryInternCode": field_category_intern_code,
+                "fieldTypeInternCode": field_type_intern_code,
+            }
+        )
+        if length is not UNSET:
+            field_dict["length"] = length
+        if shorty is not UNSET:
+            field_dict["shorty"] = shorty
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+        delete_on_archive = d.pop("deleteOnArchive")
+
+        is_active = d.pop("isActive")
+
+        is_new_person_field = d.pop("isNewPersonField")
+
+        line_ending = d.pop("lineEnding")
+
+        name = d.pop("name")
+
+        security_level = d.pop("securityLevel")
+
+        sort_key = d.pop("sortKey")
+
+        use_as_placeholder = d.pop("useAsPlaceholder")
+
+        field_category_intern_code = DbFieldCreateFieldCategoryInternCode(
+            d.pop("fieldCategoryInternCode")
+        )
+
+        field_type_intern_code = DbFieldCreateFieldTypeInternCode(
+            d.pop("fieldTypeInternCode")
+        )
+
+        def _parse_length(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        length = _parse_length(d.pop("length", UNSET))
+
+        shorty = d.pop("shorty", UNSET)
+
+        db_field_create = cls(
+            delete_on_archive=delete_on_archive,
+            is_active=is_active,
+            is_new_person_field=is_new_person_field,
+            line_ending=line_ending,
+            name=name,
+            security_level=security_level,
+            sort_key=sort_key,
+            use_as_placeholder=use_as_placeholder,
+            field_category_intern_code=field_category_intern_code,
+            field_type_intern_code=field_type_intern_code,
+            length=length,
+            shorty=shorty,
+        )
+
+        db_field_create.additional_properties = d
+        return db_field_create
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

@@ -1,0 +1,100 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..models.get_routines_routine_id_response_200_data_steps_item_type_1_children_item_type_0_type_3_action_key import (
+    GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionKey,
+)
+
+if TYPE_CHECKING:
+    from ..models.get_routines_routine_id_response_200_data_steps_item_type_1_children_item_type_0_type_3_action_data import (
+        GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionData,
+    )
+
+
+T = TypeVar(
+    "T", bound="GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3"
+)
+
+
+@_attrs_define
+class GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3:
+    """
+    Attributes:
+        action_data (GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionData): Custom group
+            member fields have their numeric field id as key
+        action_key (GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionKey):
+        is_enabled (bool):
+    """
+
+    action_data: GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionData
+    action_key: (
+        GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionKey
+    )
+    is_enabled: bool
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        action_data = self.action_data.to_dict()
+
+        action_key = self.action_key.value
+
+        is_enabled = self.is_enabled
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "actionData": action_data,
+                "actionKey": action_key,
+                "isEnabled": is_enabled,
+            }
+        )
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.get_routines_routine_id_response_200_data_steps_item_type_1_children_item_type_0_type_3_action_data import (
+            GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionData,
+        )
+
+        d = dict(src_dict)
+        action_data = GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionData.from_dict(
+            d.pop("actionData")
+        )
+
+        action_key = GetRoutinesRoutineIdResponse200DataStepsItemType1ChildrenItemType0Type3ActionKey(
+            d.pop("actionKey")
+        )
+
+        is_enabled = d.pop("isEnabled")
+
+        get_routines_routine_id_response_200_data_steps_item_type_1_children_item_type_0_type_3 = cls(
+            action_data=action_data,
+            action_key=action_key,
+            is_enabled=is_enabled,
+        )
+
+        get_routines_routine_id_response_200_data_steps_item_type_1_children_item_type_0_type_3.additional_properties = d
+        return get_routines_routine_id_response_200_data_steps_item_type_1_children_item_type_0_type_3
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties
