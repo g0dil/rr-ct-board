@@ -22,11 +22,6 @@ async def get_family(familyId: int) -> dict:
 
 
 def main() -> None:
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s.%(msecs)03dZ [%(levelname)s] %(message)s",
-        datefmt="%Y-%m-%dT%H:%M:%S")
-    logging.Formatter.converter = time.gmtime
     app = connexion.AsyncApp(__name__)
     app.add_api(
         "openapi.yaml",
@@ -34,4 +29,4 @@ def main() -> None:
         validate_responses=True,
         swagger_ui=True,  # also works here
     )
-    app.run()
+    return app

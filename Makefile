@@ -2,6 +2,7 @@ install:
 	poetry install
 
 build:
+	rm -rf dist
 	poetry build
 
 clean:
@@ -32,4 +33,18 @@ format:
 	poetry run black .
 
 run:
-	poetry run rr-ct-board
+	poetry run uvicorn rr_ct_board.app:main \
+		--factory \
+		--log-config=log-config.yaml \
+		--host=127.0.0.1 \
+		--port=8000
+
+image:
+	podman build .
+
+run-image:
+	podman run -v `pwd`:/app -p 8000:8000 rr-ct-board \
+		--factory \
+		--log-config /app/log-config.yaml \
+		--host 0.0.0.0 \
+		--port 8000
