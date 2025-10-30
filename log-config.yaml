@@ -5,10 +5,12 @@ formatters:
     # "()": uvicorn.logging.DefaultFormatter
     format: '%(asctime)s.%(msecs)03dZ [%(levelname)s] %(message)s'
     datefmt: '%Y-%m-%dT%H:%M:%S'
+    class: rr_ct_board.logging.GMTFormatter
   access:
     # "()": uvicorn.logging.AccessFormatter
     format: '%(asctime)s.%(msecs)03dZ [%(levelname)s] %(message)s'
     datefmt: '%Y-%m-%dT%H:%M:%S'
+    class: rr_ct_board.logging.GMTFormatter
 handlers:
   default:
     formatter: default
