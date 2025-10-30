@@ -1,4 +1,4 @@
-instal:
+install:
 	poetry install
 
 build:
@@ -6,3 +6,23 @@ build:
 
 clean:
 	git clean -dfX
+
+env-clean:
+	poetry env list | cut -d' ' -f1 | xargs -n1 -r poetry env remove
+
+gen: rr_ct_board/models.py
+
+rr_ct_board/models.py: rr_ct_board/openapi.yaml
+	poetry run datamodel-codegen \
+		--input $< \
+		--input-file-type openapi \
+		--output $@
+
+test:
+	poetry run pytest
+
+format:
+	poetry run black .
+
+run:
+	poetry run rr-ct-board

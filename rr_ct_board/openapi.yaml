@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Family API
+  version: "1.0.0"
+  description: A simple example API using Connexion + aiohttp
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /families:
+    get:
+      summary: List families
+      operationId: rr_ct_board.app.list_families
+      responses:
+        "200":
+          description: Return data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FamilyListResponse"
+
+  /family/{familyId}:
+    get:
+      summary: Get a family by ID
+      operationId: rr_ct_board.app.get_family
+      parameters:
+        - name: familyId
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 42
+      responses:
+        "200":
+          description: Successfully retrieved family
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FamilyResponse"
+
+components:
+  schemas:
+    FamilyListResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        familyIds:
+          type: array
+          items:
+            type: integer
+
+    FamilyResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        familyId:
+          type: integer
+        members:
+          type: array
+          items:
+            $ref: "#/components/schemas/FamilyPerson"
+      required: [familyId, members]
+
+    FamilyPerson:
+      type: object
+      properties:
+        personId:
+          type: integer
+        name:
+          type: string
+      required: [personId, name]
